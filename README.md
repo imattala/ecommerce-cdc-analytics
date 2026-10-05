@@ -42,7 +42,7 @@ Python CDC→BigQuery loader (micro-batch consumer, append-only)
 
 Work in progress — see the [issues](../../issues) for the milestone breakdown.
 
-- [ ] M1 — CDC ingest: Postgres + Debezium + Kafka
+- [x] M1 — CDC ingest: Postgres + Debezium + Kafka
 - [ ] M2 — Land in BigQuery
 - [ ] M3 — dbt staging + intermediate
 - [ ] M4 — dbt marts + tests
