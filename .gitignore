@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+.user.yml
+
+# GCP / local auth (never commit credentials)
+*.json
+!kafka-connect/*.json
+gcloud-credentials/
+
+# Docker volumes / local state
+postgres-data/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
