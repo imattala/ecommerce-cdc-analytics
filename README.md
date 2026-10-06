@@ -52,9 +52,12 @@ Work in progress — see the [issues](../../issues) for the milestone breakdown.
 ## Running it
 
 **Prerequisites:** Docker + Docker Compose for the CDC half (Postgres,
-Kafka, Debezium). A free Google Cloud project with the BigQuery API
-enabled is needed from M2 onward — see [docs/bigquery-setup.md](docs/bigquery-setup.md)
-once that lands.
+Kafka, Debezium). From M2 onward, a Google Cloud project with billing
+enabled and the BigQuery API on — see
+[docs/bigquery-setup.md](docs/bigquery-setup.md) (billing is required, not
+just the free sandbox — dbt snapshots in M5 need DML, which Sandbox mode
+blocks entirely; realistic usage at this project's scale stays well under
+the free trial credit either way).
 
 ```
 docker compose up -d --build
