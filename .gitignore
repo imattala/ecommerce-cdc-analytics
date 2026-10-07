@@ -19,6 +19,9 @@ gcloud-credentials/
 # Docker volumes / local state
 postgres-data/
 
+# Local env (project id, never a secret, but still not to be committed)
+.env
+
 # OS / editor
 .DS_Store
 .idea/

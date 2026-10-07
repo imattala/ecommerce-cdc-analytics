@@ -43,7 +43,7 @@ Python CDC→BigQuery loader (micro-batch consumer, append-only)
 Work in progress — see the [issues](../../issues) for the milestone breakdown.
 
 - [x] M1 — CDC ingest: Postgres + Debezium + Kafka
-- [ ] M2 — Land in BigQuery
+- [x] M2 — Land in BigQuery
 - [ ] M3 — dbt staging + intermediate
 - [ ] M4 — dbt marts + tests
 - [ ] M5 — SCD history (dbt snapshots)
@@ -57,11 +57,17 @@ enabled and the BigQuery API on — see
 [docs/bigquery-setup.md](docs/bigquery-setup.md) (billing is required, not
 just the free sandbox — dbt snapshots in M5 need DML, which Sandbox mode
 blocks entirely; realistic usage at this project's scale stays well under
-the free trial credit either way).
+the free trial credit either way). Once that's done:
 
 ```
+cp .env.example .env     # fill in GCP_PROJECT_ID
+gcloud auth application-default login
 docker compose up -d --build
 ```
+
+`bq-loader` mounts your local Application Default Credentials
+(`~/.config/gcloud/application_default_credentials.json`) read-only into
+the container — no service account key to manage.
 
 Stop everything with:
 
