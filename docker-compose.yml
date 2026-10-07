@@ -96,6 +96,27 @@ services:
       - ./kafka-connect:/config
     entrypoint: ["/bin/sh", "/config/register-connector.sh"]
 
+  # ── Lands CDC events into BigQuery raw_* tables ─────────────────────────
+  bq-loader:
+    build:
+      context: ./bq-loader
+    container_name: ecommerce-bq-loader
+    restart: on-failure
+    depends_on:
+      kafka:
+        condition: service_healthy
+      connector-register:
+        condition: service_completed_successfully
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      TOPIC_PREFIX: ecommerce
+      TABLES: customers,products,orders,order_items
+      GCP_PROJECT: ${GCP_PROJECT_ID}
+      BQ_DATASET: ecommerce_raw
+      GOOGLE_APPLICATION_CREDENTIALS: /gcp/application_default_credentials.json
+    volumes:
+      - ${HOME}/.config/gcloud/application_default_credentials.json:/gcp/application_default_credentials.json:ro
+
   kafka-ui:
     image: ghcr.io/kafbat/kafka-ui:latest
     container_name: ecommerce-kafka-ui
