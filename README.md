@@ -44,7 +44,7 @@ Work in progress — see the [issues](../../issues) for the milestone breakdown.
 
 - [x] M1 — CDC ingest: Postgres + Debezium + Kafka
 - [x] M2 — Land in BigQuery
-- [ ] M3 — dbt staging + intermediate
+- [x] M3 — dbt staging + intermediate
 - [ ] M4 — dbt marts + tests
 - [ ] M5 — SCD history (dbt snapshots)
 - [ ] M6 — Polish
@@ -68,6 +68,9 @@ docker compose up -d --build
 `bq-loader` mounts your local Application Default Credentials
 (`~/.config/gcloud/application_default_credentials.json`) read-only into
 the container — no service account key to manage.
+
+dbt transformations run separately against BigQuery (not inside
+docker-compose) — see [dbt_project/](dbt_project/README.md).
 
 Stop everything with:
 
