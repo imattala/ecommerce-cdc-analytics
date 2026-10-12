@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Typed/cleaned pass-through of the raw customers CDC log.
+  - name: stg_products
+    description: Typed/cleaned pass-through of the raw products CDC log.
+  - name: stg_orders
+    description: Typed/cleaned pass-through of the raw orders CDC log.
+  - name: stg_order_items
+    description: Typed/cleaned pass-through of the raw order_items CDC log.
