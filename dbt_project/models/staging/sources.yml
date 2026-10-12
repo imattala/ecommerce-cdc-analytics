@@ -3,6 +3,10 @@ version: 2
 sources:
   - name: ecommerce_raw
     dataset: ecommerce_raw
+    description: >
+      Append-only CDC event log landed by bq-loader from Debezium's
+      Postgres connector. Every insert/update/delete is a separate row,
+      carrying _cdc_op (c/u/d/r) and _cdc_source_ts_ms.
     tables:
       - name: customers
       - name: products

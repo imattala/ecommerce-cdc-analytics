@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: int_customers_current
+    description: >
+      Latest row per customer_id from the CDC log (current_rows_by_key),
+      excluding customers whose latest event is a delete.
+  - name: int_products_current
+    description: Latest row per product_id from the CDC log.
+  - name: int_orders_current
+    description: Latest row per order_id from the CDC log.
+  - name: int_order_items_current
+    description: Latest row per order_item_id from the CDC log.
