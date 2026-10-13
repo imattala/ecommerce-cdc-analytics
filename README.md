@@ -46,7 +46,7 @@ Work in progress — see the [issues](../../issues) for the milestone breakdown.
 - [x] M2 — Land in BigQuery
 - [x] M3 — dbt staging + intermediate
 - [x] M4 — dbt marts + tests
-- [ ] M5 — SCD history (dbt snapshots)
+- [x] M5 — SCD history (dbt snapshots)
 - [ ] M6 — Polish
 
 ## Running it
