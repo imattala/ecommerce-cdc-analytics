@@ -9,6 +9,12 @@ into clean, current-state tables.
   primary key", via the `current_rows_by_key()` macro
   (`macros/current_rows_by_key.sql`): rank events per key by CDC source
   timestamp, keep the latest, and drop keys whose latest event is a delete
+- `models/marts/` — `fact_orders` (order grain, with order_items rolled
+  up), `dim_customers`, `dim_products`, plus data tests
+- `snapshots/` — SCD2 history of customer/product attributes over time,
+  built on dbt's `timestamp` strategy over the intermediate "current"
+  tables, with `invalidate_hard_deletes` so a deleted row's history
+  closes out correctly instead of staying open forever
 
 ## Setup
 
@@ -27,7 +33,8 @@ repo root's `.env`).
 cd dbt_project
 export GCP_PROJECT_ID=<your project id>
 .venv/bin/dbt run --profiles-dir .
-.venv/bin/dbt test --profiles-dir .   # once tests land in M4
+.venv/bin/dbt test --profiles-dir .
+.venv/bin/dbt snapshot --profiles-dir .
 ```
 
 (`--profiles-dir .` points dbt at this directory's `profiles.yml` instead

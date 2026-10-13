@@ -1,0 +1,20 @@
+version: 2
+
+snapshots:
+  - name: customers_snapshot
+    description: >
+      SCD2 history of customer attributes, built on dbt's timestamp
+      snapshot strategy over int_customers_current. A deleted customer's
+      row is correctly closed out (dbt_valid_to set, not left open) thanks
+      to invalidate_hard_deletes.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: products_snapshot
+    description: SCD2 history of product attributes (same strategy as customers_snapshot).
+    columns:
+      - name: product_id
+        tests:
+          - not_null
