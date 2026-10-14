@@ -35,6 +35,8 @@ export GCP_PROJECT_ID=<your project id>
 .venv/bin/dbt run --profiles-dir .
 .venv/bin/dbt test --profiles-dir .
 .venv/bin/dbt snapshot --profiles-dir .
+.venv/bin/dbt docs generate --profiles-dir .
+.venv/bin/dbt docs serve --profiles-dir .   # browsable lineage graph at localhost:8080
 ```
 
 (`--profiles-dir .` points dbt at this directory's `profiles.yml` instead
