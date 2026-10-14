@@ -9,6 +9,7 @@ key wins" logic regardless of whether the raw log has occasional dupes.
 """
 import json
 import os
+import sys
 import time
 from datetime import datetime, timezone
 
@@ -18,7 +19,7 @@ from google.cloud import bigquery
 KAFKA_BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092")
 TOPIC_PREFIX = os.environ.get("TOPIC_PREFIX", "ecommerce")
 TABLES = os.environ.get("TABLES", "customers,products,orders,order_items").split(",")
-GCP_PROJECT = os.environ["GCP_PROJECT"]
+GCP_PROJECT = os.environ.get("GCP_PROJECT", "")
 BQ_DATASET = os.environ.get("BQ_DATASET", "ecommerce_raw")
 BATCH_INTERVAL_SECONDS = float(os.environ.get("BATCH_INTERVAL_SECONDS", "10"))
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "500"))
@@ -61,6 +62,13 @@ def flush_table(client: bigquery.Client, table: str, rows: list[dict]):
 
 
 def main():
+    if not GCP_PROJECT:
+        sys.exit(
+            "GCP_PROJECT is not set - this service needs a GCP project with billing "
+            "enabled to land CDC events into BigQuery. See docs/bigquery-setup.md, "
+            "then set GCP_PROJECT_ID in .env (copy .env.example) and restart. The "
+            "rest of the stack (Postgres, Kafka, Debezium) works fine without this."
+        )
     client = bigquery.Client(project=GCP_PROJECT)
     ensure_dataset(client)
 
